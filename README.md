@@ -1,7 +1,4 @@
 # tex-minutes
-
-<!--> test-->
-
 ### Introduction
 The minutes class forms a standard for minutes. By including this documentclass you extend on the article class and add custom designed commands that make creating minutes more easy.
 
