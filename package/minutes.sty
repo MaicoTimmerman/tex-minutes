@@ -451,44 +451,44 @@
     \renewcommand{\theminutes@attachment}{\thechapter.\Roman{minutes@attachment}
     }
 }
-\newcommand{\attachment}[3][\relax]{%[label]{titel}{sides}
+\newcommand{\attachment}[2][\relax]{%[label]{titel}{sides}
     \stepcounter{minutes@attachment}
     \par
     \min@textEnclosure\ \theminutes@attachment: #2
     \ifx\relax#1
     \else
-        \min@textPage~\pageref{#1}
-    \fi[#3]%
+        (\min@textPage~\pageref{#1})
+    \fi%
     \addcontentsline{\min@file@Att}{attachment}{%
-        {#1}{\theminutes@attachment}{#2}{#3}
+        {#1}{\theminutes@attachment}{#2}
     }
 }%\attachment
 
 \newcommand{\listofattachments}{%
     \ifhyperloaded
         \renewcommand{\contentsline}[4]{
-            \csname l@##1\endcsname{##2}{##3}
+            \csname l@##1\endcsname{##2}
         }
     \fi
     \renewcommand\@pnumwidth{2em}%Original: 1.55em
-    \setcounter{minutes@page}{\value{page}}\stepcounter{minutes@page}
+    \setcounter{minutes@page}{\value{page}}
+    \stepcounter{minutes@page}
     {\@starttoc{\min@file@Att}}
     \clearpage
     \setcounter{page}{\value{minutes@page}}%
 }
-\newcommand{\l@attachment}[2]{%
+\newcommand{\l@attachment}[1]{%
     \expandafter\min@l@attachment#1
 }% \listofAttachments
 
-\newcommand{\min@l@attachment}[4]{%{label}{theattachment}{title}{pages}
+\newcommand{\min@l@attachment}[3]{%{label}{theattachment}{title}
     \@dottedtocline{1}{0mm}{20mm}{%
     \numberline {#2} #3}{%
-    \arabic{minutes@page} [#4]}
+    \arabic{minutes@page}}
     \ifx\relax#1\else
         \ifhyperloaded
-            \protected@write\@auxout{}%
-            {\string\newlabel%
-                {#1}%Label
+            \protected@write\@auxout{}{%
+                \string\newlabel{#1}%Label
                 {%
                     {#2}%number of section
                     {\arabic{minutes@page}}%pagenumber
@@ -498,12 +498,16 @@
                 }%closenewlabel
             }%close \protected@write
         \else% hyperref is not used
-            \protected@write\@auxout{}%
-            {\string\newlabel{#1}{{#2}{\arabic{minutes@page}}}}%
+            \protected@write\@auxout{}{%
+                \string\newlabel{#1}
+                    {#2}%number of section
+                    {\arabic{minutes@page}}%pagenumber
+            }%
         \fi%\ifhyperloaded
     \fi%\ifx\relax
-    \addtocounter{minutes@page}{#4}%
+    % \addtocounter{minutes@page}{#4}%
 }%\def\min@l@attachment
+
 \newcommand{\vote}[1]{
 \gdef\min@voteT{#1}
 \min@voteI}
