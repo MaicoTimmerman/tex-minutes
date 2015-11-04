@@ -9,13 +9,13 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 
-\LoadClass[a4paper,11pt]{article}
+\LoadClass{article}
 
 \ifeng@art\RequirePackage[english]{babel}
 \else\RequirePackage[dutch]{babel}
 \fi
 
-\RequirePackage{eurosym, minitoc, fancyhdr, helvet, lineno, ifthen}
+\RequirePackage{geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen}
 \RequirePackage[utf8]{inputenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,6 +30,8 @@
 
 \setlength{\hoffset}		{-1in}
 \setlength{\voffset}		{-1in}
+
+\setlength{\marginparwidth}{30mm}
 
 \setlength{\textwidth}		{150mm}
 \setlength{\textheight}		{230mm}
@@ -58,8 +60,6 @@
 \modulolinenumbers[5]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\renewcommand\familydefault{\sfdefault}
 
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{2}
@@ -105,6 +105,7 @@
 \newcommand{\l@decision}{\@dottedtocline{1}{1.5em}{2.3em}}
 
 \newcommand{\decision}[1]{\par
+    \marginnote{$\Leftarrow{}$}
     \textbf{Besluit:} \hspace{5mm} #1
     \addcontentsline{lod}{decision}
     {\not@thedecision\hspace{1em}{#1}}
@@ -214,10 +215,11 @@
 
 % Gebruikerscommando voor een actiepunt.
 \newcommand{\task}[2]{\par
-  \@intasklisttrue
-  \textbf{Actie:} \hspace{0.5mm} \name{#1} #2
-  \addtocontents{loa}{\protect\@task{#1}{#2}{\thepage}}
-  \@intasklistfalse
+    \@intasklisttrue
+    \textbf{Actie:} \hspace{0.5mm} \name{#1} #2
+    \addtocontents{loa}{\protect\@task{#1}{#2}{\thepage}}
+    \@intasklistfalse
+    \marginnote{$\Leftarrow{}$}
 }
 
 \newif\if@intasklist
@@ -283,6 +285,20 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%% Voting
+
+\newenvironment{vote}[1]{
+    \marginnote{\small{\textbf{Stemming}}}
+    {\textbf{Stemvoorstel:} #1}
+    \begin{center}
+        \begin{tabular}{ll}
+}{
+        \end{tabular}
+    \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\min@title}   {Notulen \message{Waarschuwing: geen title ingevoerd}}
 \newcommand{\min@date}   {\today  \message{Waarschuwing: geen date ingevoerd}}
 \newcommand{\min@present}{Allen}
@@ -299,13 +315,13 @@
 
 
 \let\default@title\title
-\renewcommand{\title}[1]{
+\renewcommand{\title}[1]{%
     \renewcommand{\min@title}{#1}
     \default@title{#1}
 }
 
 \let\default@date\date
-\renewcommand{\date}[1]{
+\renewcommand{\date}[1]{%
     \renewcommand{\min@date}{#1}
     \default@date{#1}
 }
@@ -318,6 +334,7 @@
     \renewcommand{\min@absent}{#1}
 }
 
+\renewcommand{\ptctitle}{Onderwerpen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Here we redefine the maketitle to add attendees and other important
@@ -338,11 +355,11 @@
         {\large \@date}%
     \end{center}%
 
-
+    \rule{\linewidth}{0.2pt}
     \tableofcontents
+    \rule{\linewidth}{0.2pt}
 
-    \par % empty line
-    \vskip 1.5em
+    \vskip 3em
 }
 \makeatother
 

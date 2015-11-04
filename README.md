@@ -16,7 +16,7 @@ Sets the date of the minutes. Remember not to use `\today`, this will cause the 
 `\present{<list of present people>`
 Sets the list of present people in the header. Output is directly added to the header.
 
-`\absent{<list of absent people>}` 
+`\absent{<list of absent people>}`
 Sets the list of absent people in the header. Output is directly added to the header. If empty or not used, there will not be an entry in the `\maketitle`.
 
 `\decision{<The decision>}`
@@ -37,5 +37,13 @@ This command generates a list of tasks made in the whole document, sorted based 
 `\name{<name>}`
 Marks the name of a user slightly italic. Usefull for use in defining commands for participants. E.g. `\newcommand{\maico}{\name{Maico Timmerman}}`
 
-
-
+```latex
+\begin{vote}{<Voting>}
+    Voor & 9 stemmen\\
+    Tegen & 3 stemmen\\
+    Blanco & 3 stemmen\\
+    Onthouden van stemmen & 3 stemmen\\
+\end{vote}
+```
+Creates an voting table. The table must contain 2 columns seperated by `&`. The
+<Voting> will be placed above the vote.
