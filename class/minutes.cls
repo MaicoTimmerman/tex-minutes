@@ -105,7 +105,7 @@
 \newcommand{\l@decision}{\@dottedtocline{1}{1.5em}{2.3em}}
 
 \newcommand{\decision}[1]{\par
-    \marginnote{$\Leftarrow{}$}
+    \marginnote{$\Leftarrow{}$\footnotesize{\textbf{Besluit}}}
     \textbf{Besluit:} \hspace{5mm} #1
     \addcontentsline{lod}{decision}
     {\not@thedecision\hspace{1em}{#1}}
@@ -215,11 +215,11 @@
 
 % Gebruikerscommando voor een actiepunt.
 \newcommand{\task}[2]{\par
+    \marginnote{$\Leftarrow{}$\footnotesize{\textbf{Actie}}}
     \@intasklisttrue
     \textbf{Actie:} \hspace{0.5mm} \name{#1} #2
     \addtocontents{loa}{\protect\@task{#1}{#2}{\thepage}}
     \@intasklistfalse
-    \marginnote{$\Leftarrow{}$}
 }
 
 \newif\if@intasklist
@@ -285,11 +285,9 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%%%% Voting
 
 \newenvironment{vote}[1]{
-    \marginnote{\small{\textbf{Stemming}}}
+    \marginnote{$\Leftarrow$ \footnotesize{\textbf{Stemming}}}
     {\textbf{Stemvoorstel:} #1}
     \begin{center}
         \begin{tabular}{ll}
@@ -297,6 +295,15 @@
         \end{tabular}
     \end{center}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\timestamp}[2]{\par
+    \reversemarginpar
+    \sidenote{\textbf{#2}}
+    \marginnote{\footnotesize{#1}}\par
+    \normalmarginpar
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\min@title}   {Notulen \message{Waarschuwing: geen title ingevoerd}}

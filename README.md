@@ -82,3 +82,11 @@ for participants.
 ```
 Creates an voting table. The table must contain 2 columns seperated by `&`. The
 <Voting> will be placed above the vote.
+
+```latex
+\timestamp{<time>}{<event>}
+% Example:
+\timestamp{13:37}{Maico Timmerman enters the meeting}
+\timestamp{noon}{This meeting has been suspended}
+```
+Marks the leftmargin with an timestamp of the event.
