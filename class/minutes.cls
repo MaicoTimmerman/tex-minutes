@@ -4,6 +4,7 @@
 \ProvidesClass{minutes}[2011/01/25 v1.0 via-minutes]
 
 \newif\ifeng@art \eng@artfalse
+\newif\ifcolorblind@art \colorblind@artfalse
 
 \DeclareOption{english}{\eng@arttrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -16,6 +17,7 @@
 \fi
 
 \RequirePackage{geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen}
+\RequirePackage[dvipsnames]{xcolor}
 \RequirePackage[utf8]{inputenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,6 +59,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.0pt}
 
+\rightlinenumbers*
 \modulolinenumbers[5]
 
 
@@ -106,8 +109,15 @@
 \newcommand{\l@decision}{\@dottedtocline{1}{1.5em}{2.3em}}
 
 \newcommand{\decision}[1]{\par
-    \marginnote{$\Leftarrow{}$\footnotesize{\textbf{Besluit}}}
-    \textbf{Besluit:} \hspace{5mm} #1
+    \reversemarginpar
+    \ifcolorblind@art
+        {\color{Purple}
+    \fi
+            \marginnote{\small{\textbf{Besluit}}}
+            \textit{#1}
+    \ifcolorblind@art
+        }
+    \fi
     \addcontentsline{lod}{decision}
     {\not@thedecision\hspace{1em}{#1}}
     \addtocounter{decision}{1}
@@ -216,11 +226,19 @@
 
 % Gebruikerscommando voor een actiepunt.
 \newcommand{\task}[2]{\par
-    \marginnote{$\Leftarrow{}$\footnotesize{\textbf{Actie}}}
-    \@intasklisttrue
-    \textbf{Actie:} \hspace{0.5mm} \name{#1} #2
+    \reversemarginpar
+    \ifcolorblind@art
+        {\color{Red}
+    \fi
+            \marginnote{\small{\textbf{Actie}}}
+            \@intasklisttrue
+            \textit{\name{#1} #2}
+    \ifcolorblind@art
+        }
+    \fi
     \addtocontents{loa}{\protect\@task{#1}{#2}{\thepage}}
     \@intasklistfalse
+    \normalmarginpar
 }
 
 \newif\if@intasklist
@@ -288,8 +306,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{vote}[1]{
-    \marginnote{$\Leftarrow$ \footnotesize{\textbf{Stemming}}}
-    {\textbf{Stemvoorstel:} #1}
+    \reversemarginpar
+    \marginnote{\small{\textbf{Stemming}}}
+    \textbf{Stemvoorstel:} #1
+    \normalmarginpar
     \begin{center}
         \begin{tabular}{ll}
 }{
@@ -299,8 +319,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\timestamp}[2]{\par
-    \sidenote{#2}
-    \marginnote{$\Leftarrow$ \footnotesize{#1}}\par
+    \reversemarginpar
+    \ifcolorblind@art
+        {\color{OliveGreen}
+    \fi
+            \marginnote{\small{\textbf{#1}}}
+            \textit{#2}\par
+    \ifcolorblind@art
+        }
+    \fi
+    \normalmarginpar
+    % \sidenote{#2}
+    % \marginnote{$\Leftarrow$ \footnotesize{#1}}\par
 }
 
 

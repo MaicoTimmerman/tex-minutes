@@ -1,9 +1,15 @@
 # tex-minutes
 ### Introduction
-The minutes class forms a standard for minutes. By including this documentclass you extend on the article class and add custom designed commands that make creating minutes more easy.
+The minutes class forms a standard for minutes. By including this documentclass
+you extend on the article class and add custom designed commands that make
+creating minutes more easy. Default language of the minutes is dutch.
 
 ### Class loading
-Using `\documentclass{<options>}{minutes}` at the top of the document you can load the class. <options> are comma seperated. At the moment this class only supports all options it inherits from the article class.
+Using `\documentclass{<options>}{minutes}` at the top of the document you can
+load the class. <options> are comma seperated. Supported options are:
+
+`colorblind` Disable all coloring in the document.
+`english` Sets language of the minutes to English, default is Dutch.
 
 ### Included commands
 
