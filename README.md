@@ -21,8 +21,8 @@ load the class. <options> are comma seperated. Supported options are:
 % Example:
 \title{Breakfast meeting}
 
-% Sets the date of the minutes. Remember not to use `\today`, this will cause
-% the date to be changed on compile. If no date is given, `\today` is used and a
+% Sets the date of the minutes. Remember not to use \today, this will cause
+% the date to be changed on compile. If no date is given, \today is used and a
 % PackageWarning is given.
 \date{<date of the document>}
 % Example
@@ -35,7 +35,7 @@ load the class. <options> are comma seperated. Supported options are:
 \present{Maico Timmerman, John Doe}
 
 % Sets the list of absent people in the header. Output is directly added to
-% the header. If empty or not used, there will not be an entry in the `\maketitle`.
+% the header. If empty or not used, there will not be an entry in the \maketitle.
 \absent{<list of absent people>}
 % Example:
 \absent{Maico Timmerman, John Doe}
@@ -58,20 +58,20 @@ load the class. <options> are comma seperated. Supported options are:
 
 % This command generates a list of tasks made in the whole document. The
 % tasks are sorted in the order they are added. Cannot be combined
-% with `\tasklistpp`.
+% with \tasklistpp.
 \tasklist
 
 % This command generates a list of tasks made in the whole document, sorted
-% based on the name whom the task is for. Cannot be combined with `\tasklist`.
+% based on the name whom the task is for. Cannot be combined with \tasklist.
 \tasklistpp
 
 % Marks the name of a user slightly italic. Usefull for use in defining commands
 % for participants.
 \name{<name>}
 % Example:
-`\newcommand{\maico}{\name{Maico Timmerman}}`
+\newcommand{\maico}{\name{Maico Timmerman}}
 
-% Creates an voting table. The table must contain 2 columns seperated by `&`.
+% Creates an voting table. The table must contain 2 columns seperated by &.
 % The <Voting> will be placed above the vote.
 \begin{vote}{<Voting>}
     Voor & 9 stemmen\\
