@@ -59,6 +59,7 @@
 
 \modulolinenumbers[5]
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setcounter{secnumdepth}{1}
@@ -298,10 +299,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\timestamp}[2]{\par
-    \reversemarginpar
-    \sidenote{\textbf{#2}}
-    \marginnote{\footnotesize{#1}}\par
-    \normalmarginpar
+    \sidenote{#2}
+    \marginnote{$\Leftarrow$ \footnotesize{#1}}\par
 }
 
 
