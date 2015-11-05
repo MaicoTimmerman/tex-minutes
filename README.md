@@ -8,7 +8,7 @@ creating minutes more easy. Default language of the minutes is dutch.
 Using `\documentclass{<options>}{minutes}` at the top of the document you can
 load the class. <options> are comma seperated. Supported options are:
 
-`colorblind` Disable all coloring in the document.
+`colorblind` Disable all coloring in the document, default is colored.
 `english` Sets language of the minutes to English, default is Dutch.
 
 ### Included commands

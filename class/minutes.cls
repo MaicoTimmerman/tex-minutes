@@ -12,8 +12,10 @@
 
 \LoadClass{article}
 
-\ifeng@art\RequirePackage[english]{babel}
-\else\RequirePackage[dutch]{babel}
+\ifeng@art
+    \RequirePackage[english]{babel}
+\else
+    \RequirePackage[dutch]{babel}
 \fi
 
 \RequirePackage{geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen}
@@ -93,7 +95,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\decisionlistname}{Besluitenlijst}
+\ifeng@art
+    \newcommand{\decisionlistname}{Decisions}
+\else
+    \newcommand{\decisionlistname}{Besluitenlijst}
+\fi
+
 \newcommand{\decisionlistentry}{
     \addcontentsline{toc}{section}{\decisionlistname}
 }
@@ -113,7 +120,11 @@
     \ifcolorblind@art
         {\color{Purple}
     \fi
+    \ifeng@art
+            \marginnote{\small{\textbf{Decision}}}
+    \else
             \marginnote{\small{\textbf{Besluit}}}
+    \fi
             \textit{#1}
     \ifcolorblind@art
         }
@@ -137,7 +148,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\newcommand{\tasklistname}{Actiepunten}
+\ifeng@art
+    \newcommand{\tasklistname}{Tasks}
+\else
+    \newcommand{\tasklistname}{Actiepunten}
+\fi
 \newcommand{\tasklistentry}{
   \addcontentsline{toc}{section}{\tasklistname}
 }
@@ -167,59 +182,59 @@
 % Defines a \@task for use with the \tasklistpp.
 % \tasklist redefines this command for what it needs
 \def\@task#1#2#3{% <- Name, Task, Page
-  %
-  % Zoek ##1 op in alle al bekende namen:
-  \def\splitn@@m##1, {%
-  \setcounter{task@curname}{0}%
-  \setboolean{task@gebakt}{false}%
-    \ifx\relax##1%
-      \let\next@@\relax
-    \else
-      \let\next@@\splitn@@m
-      \whiledo{\thetask@curname < \thetask@names}{%
-        \ifthenelse{\equal{##1}{\csname task@name\thetask@curname\endcsname}}{%
-          % Gevonden.
-          % Laad het aantal eerdere taken van deze persoon in een counter:
-          \setcounter{task@tmp}{\csname task@name\thetask@curname taken\endcsname}%
-          % Definieer \task@nameXXtaakXX als de nieuwe taak:
-          \global\expandafter\def\csname task@name\thetask@curname taak\thetask@tmp\endcsname{%
-						\ifthenelse{\equal{#1}{##1}}{%
-							\l@task{#2}{#3}
-						}{%
-							\l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
-						}
-          }%
-          % Hoog het aantal eerdere taken op:
-          \stepcounter{task@tmp}%
-          \global\expandafter\edef\csname task@name\thetask@curname taken\endcsname{\thetask@tmp}%
+    %
+    % Zoek ##1 op in alle al bekende namen:
+    \def\splitn@@m##1, {%
+        \setcounter{task@curname}{0}%
+        \setboolean{task@gebakt}{false}%
+        \ifx\relax##1%
+            \let\next@@\relax
+        \else
+            \let\next@@\splitn@@m
+            \whiledo{\thetask@curname < \thetask@names}{%
+                \ifthenelse{\equal{##1}{\csname task@name\thetask@curname\endcsname}}{%
+                    % Gevonden.
+                    % Laad het aantal eerdere taken van deze persoon in een counter:
+                    \setcounter{task@tmp}{\csname task@name\thetask@curname taken\endcsname}%
+                    % Definieer \task@nameXXtaakXX als de nieuwe taak:
+                    \global\expandafter\def\csname task@name\thetask@curname taak\thetask@tmp\endcsname{%
+                        \ifthenelse{\equal{#1}{##1}}{%
+                            \l@task{#2}{#3}
+                        }{%
+                            \l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
+                        }
+                    }%
+                    % Hoog het aantal eerdere taken op:
+                    \stepcounter{task@tmp}%
+                    \global\expandafter\edef\csname task@name\thetask@curname taken\endcsname{\thetask@tmp}%
 
-          % Onthoud dat deze name al bestond:
-          \setboolean{task@gebakt}{true}%
-        }{%
-          % niks
-        }%
-        \stepcounter{task@curname}%
-      }%
-      % Als de name niet gevonden is, moeten we hem als nieuwe name definieren:
-      \ifthenelse{\boolean{task@gebakt}}{%
-      }{%
-        % Initialiseer name, aantal taken (1) en de eerste taak:
-        \global\expandafter\def\csname task@name\thetask@names\endcsname{##1}%
-        \global\expandafter\edef\csname task@name\thetask@names taken\endcsname{1}%
-        \global\expandafter\def\csname task@name\thetask@names taak0\endcsname{%
-					\ifthenelse{\equal{#1}{##1}}{%
-						\l@task{#2}{#3}
-					}{%
-						\l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
-					}
-				}%
-        % Het totaal aantal namen++
-        \stepcounter{task@names}%
-      }%
-    \fi
+                    % Onthoud dat deze name al bestond:
+                    \setboolean{task@gebakt}{true}%
+                }{%
+                    % niks
+                }%
+                \stepcounter{task@curname}%
+            }%
+            % Als de name niet gevonden is, moeten we hem als nieuwe name definieren:
+            \ifthenelse{\boolean{task@gebakt}}{%
+            }{%
+                % Initialiseer name, aantal taken (1) en de eerste taak:
+                \global\expandafter\def\csname task@name\thetask@names\endcsname{##1}%
+                \global\expandafter\edef\csname task@name\thetask@names taken\endcsname{1}%
+                \global\expandafter\def\csname task@name\thetask@names taak0\endcsname{%
+                    \ifthenelse{\equal{#1}{##1}}{%
+                        \l@task{#2}{#3}
+                    }{%
+                        \l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
+                    }
+                }%
+                % Het totaal aantal namen++
+                \stepcounter{task@names}%
+            }%
+        \fi
     \next@@}%
-  % splits #1 op komma's
-  \expandafter\splitn@@m#1, \relax,%
+    % splits #1 op komma's
+    \expandafter\splitn@@m#1, \relax,%
 }%
 
 \newcommand*{\l@task}{\@dottedtocline{1}{1.5em}{2.3em}}
@@ -230,7 +245,11 @@
     \ifcolorblind@art
         {\color{Red}
     \fi
+    \ifeng@art
+            \marginnote{\small{\textbf{Task}}}
+    \else
             \marginnote{\small{\textbf{Actie}}}
+    \fi
             \@intasklisttrue
             \textit{\name{#1} #2}
     \ifcolorblind@art
@@ -307,8 +326,13 @@
 
 \newenvironment{vote}[1]{
     \reversemarginpar
-    \marginnote{\small{\textbf{Stemming}}}
-    \textbf{Stemvoorstel:} #1
+    \ifeng@art
+        \marginnote{\small{\textbf{Voting}}}
+        \textbf{Vote proposal} #1
+    \else
+        \marginnote{\small{\textbf{Stemming}}}
+        \textbf{Stemvoorstel:} #1
+    \fi
     \normalmarginpar
     \begin{center}
         \begin{tabular}{ll}
