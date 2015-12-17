@@ -4,9 +4,10 @@
 \ProvidesClass{minutes}[2011/01/25 v1.0 via-minutes]
 
 \newif\ifeng@art \eng@artfalse
-\newif\ifcolorblind@art \colorblind@artfalse
+\newif\ifcolor@art \color@arttrue
 
 \DeclareOption{english}{\eng@arttrue}
+\DeclareOption{colorblind}{\color@artfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 
@@ -18,34 +19,34 @@
     \RequirePackage[dutch]{babel}
 \fi
 
-\RequirePackage{geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen}
+\RequirePackage{tabularx, geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen, xspace}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage[utf8]{inputenc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \if@twoside
-    \setlength{\oddsidemargin}	{35mm}
-    \setlength{\evensidemargin}	{25mm}
+    \setlength{\oddsidemargin}  {35mm}
+    \setlength{\evensidemargin} {25mm}
 \else
-    \setlength{\oddsidemargin}	{30mm}
-    \setlength{\evensidemargin}	{30mm}
+    \setlength{\oddsidemargin}  {30mm}
+    \setlength{\evensidemargin} {30mm}
 \fi
 
-\setlength{\hoffset}		{-1in}
-\setlength{\voffset}		{-1in}
+\setlength{\hoffset}        {-1in}
+\setlength{\voffset}        {-1in}
 
 \setlength{\marginparwidth}{30mm}
 
-\setlength{\textwidth}		{150mm}
-\setlength{\textheight}		{230mm}
-\setlength{\topmargin}		{20mm}
-\setlength{\headheight}		{1.5em}
-\setlength{\headsep}		{2em}
-\setlength{\footskip}		{4em}
+\setlength{\textwidth}      {150mm}
+\setlength{\textheight}     {230mm}
+\setlength{\topmargin}      {20mm}
+\setlength{\headheight}     {1.5em}
+\setlength{\headsep}        {2em}
+\setlength{\footskip}       {4em}
 
-\setlength{\parindent}		{0em}
-\setlength{\parskip}		{0em}
+\setlength{\parindent}      {0em}
+\setlength{\parskip}        {0em}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -70,28 +71,6 @@
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{2}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \renewcommand{\section}{
-%   \@startsection{section}{1}{\z@}
-%     {-2.5ex \@plus -1ex \@minus -.2ex}
-%     {1.3ex \@plus.2ex}
-%     {\normalfont\Large\bfseries}}
-% \renewcommand{\subsection}{
-%   \@startsection{subsection}{2}{\z@}
-%     {-1.25ex\@plus -1ex \@minus -.2ex}
-%     {0.5ex \@plus .2ex}
-%     {\normalfont\large\itshape}}
-% \renewcommand{\subsubsection}{
-%   \@startsection{subsubsection}{3}{\z@}
-%     {-1.00ex \@plus -0.50ex \@minus -0.50ex}
-%     {-1.00ex \@plus -0.50ex \@minus -0.50ex}
-%     {\normalfont\normalsize\itshape\bfseries}}
-% \renewcommand{\paragraph}{
-%   \@startsection{paragraph}{4}{\z@}
-%     {0.00ex \@plus0.1ex}
-%     {-1em}
-%     {\normalfont\normalsize\nameshape}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -117,7 +96,7 @@
 
 \newcommand{\decision}[1]{\par
     \reversemarginpar
-    \ifcolorblind@art
+    \ifcolor@art
         {\color{Purple}
     \fi
     \ifeng@art
@@ -126,7 +105,7 @@
             \marginnote{\small{\textbf{Besluit}}}
     \fi
             \textit{#1}
-    \ifcolorblind@art
+    \ifcolor@art
         }
     \fi
     \addcontentsline{lod}{decision}
@@ -242,7 +221,7 @@
 % Gebruikerscommando voor een actiepunt.
 \newcommand{\task}[2]{\par
     \reversemarginpar
-    \ifcolorblind@art
+    \ifcolor@art
         {\color{Red}
     \fi
     \ifeng@art
@@ -252,7 +231,7 @@
     \fi
             \@intasklisttrue
             \textit{\name{#1} #2}
-    \ifcolorblind@art
+    \ifcolor@art
         }
     \fi
     \addtocontents{loa}{\protect\@task{#1}{#2}{\thepage}}
@@ -325,6 +304,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{vote}[1]{
+    \vspace{1em}
     \reversemarginpar
     \ifeng@art
         \marginnote{\small{\textbf{Voting}}}
@@ -344,12 +324,12 @@
 
 \newcommand{\timestamp}[2]{\par
     \reversemarginpar
-    \ifcolorblind@art
+    \ifcolor@art
         {\color{OliveGreen}
     \fi
             \marginnote{\small{\textbf{#1}}}
             \textit{#2}\par
-    \ifcolorblind@art
+    \ifcolor@art
         }
     \fi
     \normalmarginpar
@@ -359,11 +339,34 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\min@title}   {Notulen \message{Waarschuwing: geen title ingevoerd}}
-\newcommand{\min@date}   {\today  \message{Waarschuwing: geen date ingevoerd}}
+\newcommand{\min@title}   {Notulen\message{Waarschuwing: geen title ingevoerd}}
+\newcommand{\min@date}   {\today \message{Waarschuwing: geen date ingevoerd}}
 \newcommand{\min@present}{Allen}
 \newcommand{\min@absent}{}
+\newcommand{\min@starttime}{}
+\newcommand{\min@endtime}{}
+\newcommand{\min@chairman}{}
+\newcommand{\min@secretary}{}
+\newcommand{\min@location}{}
 
+\newcommand{\secretary}[1]{%
+    \renewcommand{\min@secretary}{#1}
+}
+
+\newcommand{\chairman}[1]{%
+    \renewcommand{\min@chairman}{#1}
+}
+
+\newcommand{\starttime}[1]{%
+    \renewcommand{\min@starttime}{#1}
+}
+
+\newcommand{\stoptime}[1]{%
+    \renewcommand{\min@endtime}{#1}
+}
+\newcommand{\location}[1]{%
+    \renewcommand{\min@location}{#1}
+}
 
 \newcommand{\min@participants}{
     \ifthenelse{\equal{\min@absent}{}}%
@@ -410,11 +413,20 @@
         \let \footnote \thanks
         {\LARGE \@title \par}%
         \vskip 1.5em%
-        {\min@participants}% Hier stond de author en staan nu dus de af en presenten.
-        \vskip 1em%
         {\large \@date}%
+
     \end{center}%
 
+    \begin{tabular}{ l l }
+        \textbf{Voorzitter} & \min@chairman\\
+        \textbf{Notulist} & \min@secretary\\
+        \textbf{Tijd} & \min@starttime -- \min@endtime\\
+        \textbf{Locatie} & \min@location\\
+    \end{tabular}
+
+
+    {\min@participants}% Hier stond de author en staan nu dus de af en presenten.
+    \vskip 1em%
     \rule{\linewidth}{0.2pt}
     \tableofcontents
     \rule{\linewidth}{0.2pt}
@@ -429,7 +441,7 @@
 
 \newcommand{\wvttk}{\textsc{W.v.t.t.k.}}
 \newcommand{\nameshape}{\slshape}
-\newcommand{\name}[1]{{\nameshape #1}}
+\newcommand{\name}[1]{{\nameshape #1}\xspace}
 \newcommand{\sidenote}[1]{\medskip \footnotesize \emph{#1} \normalsize}
 \newcommand{\noitemsep}{\setlength{\itemsep}{-\parskip}}
 \endinput
