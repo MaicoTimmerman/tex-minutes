@@ -144,8 +144,7 @@
   \addcontentsline{toc}{section}{\tasklistname}
 }
 
-% Hulpcommando. Maakt een tasklist nadat je een \@task-
-% commando hebt gedefinieerd.
+% Support command. Make a tasklist after you defined a \@task command
 \newcommand{\task@buildtasklist}{%
     \tasklistentry
     \section*{\tasklistname
@@ -169,7 +168,7 @@
 % \tasklist redefines this command for what it needs
 \def\@task#1#2#3{% <- Name, Task, Page
     %
-    % Zoek ##1 op in alle al bekende namen:
+    % Search all ##1 for names that are already known
     \def\splitn@@m##1, {%
         \setcounter{task@curname}{0}%
         \setboolean{task@gebakt}{false}%
@@ -179,10 +178,10 @@
             \let\next@@\splitn@@m
             \whiledo{\thetask@curname < \thetask@names}{%
                 \ifthenelse{\equal{##1}{\csname task@name\thetask@curname\endcsname}}{%
-                    % Gevonden.
-                    % Laad het aantal eerdere taken van deze persoon in een counter:
+                    % Name found
+                    % Load the other tasks this user already has
                     \setcounter{task@tmp}{\csname task@name\thetask@curname taken\endcsname}%
-                    % Definieer \task@nameXXtaakXX als de nieuwe taak:
+                    % Define \task@nameXXtaskXX as a new task:
                     \global\expandafter\def\csname task@name\thetask@curname taak\thetask@tmp\endcsname{%
                         \ifthenelse{\equal{#1}{##1}}{%
                             \l@task{#2}{#3}
@@ -190,21 +189,21 @@
                             \l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
                         }
                     }%
-                    % Hoog het aantal eerdere taken op:
+                    % Increment the amount of tasks
                     \stepcounter{task@tmp}%
                     \global\expandafter\edef\csname task@name\thetask@curname taken\endcsname{\thetask@tmp}%
 
-                    % Onthoud dat deze name al bestond:
+                    % Save that this name already exists
                     \setboolean{task@gebakt}{true}%
                 }{%
-                    % niks
+                    % nothing
                 }%
                 \stepcounter{task@curname}%
             }%
-            % Als de name niet gevonden is, moeten we hem als nieuwe name definieren:
+            % If the name is not already known, we should define it as a new name
             \ifthenelse{\boolean{task@gebakt}}{%
             }{%
-                % Initialiseer name, aantal taken (1) en de eerste taak:
+                % Initialise name, amoun of tasks (1), and the first task itself
                 \global\expandafter\def\csname task@name\thetask@names\endcsname{##1}%
                 \global\expandafter\edef\csname task@name\thetask@names taken\endcsname{1}%
                 \global\expandafter\def\csname task@name\thetask@names taak0\endcsname{%
@@ -214,18 +213,18 @@
                         \l@task{+ \verwijdern@@m{#1}{##1}: #2}{#3}
                     }
                 }%
-                % Het totaal aantal namen++
+                % Increment the amount of names
                 \stepcounter{task@names}%
             }%
         \fi
     \next@@}%
-    % splits #1 op komma's
+    % Split #1 on commas
     \expandafter\splitn@@m#1, \relax,%
 }%
 
 \newcommand*{\l@task}{\@dottedtocline{1}{1.5em}{2.3em}}
 
-% Gebruikerscommando voor een actiepunt.
+% Usercommand for tasks
 \newcommand{\task}[2]{\par
     \reversemarginpar
     \ifcolor@art
@@ -262,20 +261,19 @@
   }%
 }
 
-% Actiepuntenlijst; platte lijst.
+% List of actions, not per person
 \newcommand{\tasklist}{%
     \global\def\@task##1##2{\contentsline{task}{\name{##1} ##2}}%
     \task@buildtasklist%
 }
 
-% Hulpstukken voor \tasklistpp.
+% Assisting commands for \tasklistpp
 \newcounter{task@names}
 \newcounter{task@curname}
 \newcounter{task@tmp}
 \newboolean{task@gebakt}
 
-% Actiepuntenlijst; gegroepeerd per persoon.
-% Tasklist; grouped by person
+% List of tasks; grouped by person
 \newcommand{\tasklistpp}{%
     \tasklistentry
     \section*{\tasklistname
@@ -398,6 +396,7 @@
          \parbox[c]{\textwidth}{\centering absent: \min@absent}}
     }
 \else
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Presence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -472,7 +471,9 @@
         \end{tabular}
     \fi
 
-    {\min@participants}% Hier stond de author en staan nu dus de af en presenten.
+    % This is where the author would be placed
+    % Now replaced by the people present and absent
+    {\min@participants}
     \vskip 1em%
     \rule{\linewidth}{0.2pt}
     \tableofcontents
