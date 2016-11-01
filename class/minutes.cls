@@ -146,7 +146,6 @@
     \@starttoc{loa}%
 }
 
-
 \def\verwijdern@@m#1#2{%
     \def\cleanup##1, !{%
         ##1%
@@ -242,6 +241,8 @@
 \newif\if@intasklist
 \newcommand{\shorttaskname}[2]{%
   \ifcsname#1\endcsname%
+    \ifeng@art
+        \PackageError{minutes}{The command #1 already exists!}{The command #1 already exists!}
     \PackageError{minutes}{Het commando #1 bestaat al!}{Het commando #1 bestaat al!}%
   \fi%
   \expandafter\newcommand\csname #1\endcsname{%
@@ -252,7 +253,6 @@
     \fi%
   }%
 }
-
 
 % Actiepuntenlijst; platte lijst.
 \newcommand{\tasklist}{%
@@ -339,9 +339,17 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\min@title}   {Notulen\message{Waarschuwing: geen title ingevoerd}}
-\newcommand{\min@date}   {\today \message{Waarschuwing: geen date ingevoerd}}
-\newcommand{\min@present}{Allen}
+
+\ifeng@art
+    \newcommand{\min@title}{Minutes\message{Warning: no title defined}}
+    \newcommand{\min@date}{\today \message{Warning: no date defined}}
+    \newcommand{\min@presend}{Everyone}
+\else
+    \newcommand{\min@title}   {Notulen\message{Waarschuwing: geen title ingevoerd}}
+    \newcommand{\min@date}   {\today \message{Waarschuwing: geen date ingevoerd}}
+    \newcommand{\min@present}{Allen}
+\fi
+
 \newcommand{\min@absent}{}
 \newcommand{\min@starttime}{}
 \newcommand{\min@endtime}{}
@@ -368,14 +376,21 @@
     \renewcommand{\min@location}{#1}
 }
 
-\newcommand{\min@participants}{
-    \ifthenelse{\equal{\min@absent}{}}%
-    {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}}%
-    {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}
-     \parbox[c]{\textwidth}{\centering afwezig: \min@absent}}
-}
-
-
+\ifeng@art
+    \newcommand{\min@participants}{
+        \ifthenelse{\equal{\min@absent}{}}%
+        {\parbox[c]{\textwidth}{\centering present: \min@present}}%
+        {\parbox[c]{\textwidth}{\centering present: \min@present}
+         \parbox[c]{\textwidth}{\centering absent: \min@absent}}
+    }
+\else
+    \newcommand{\min@participants}{
+        \ifthenelse{\equal{\min@absent}{}}%
+        {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}}%
+        {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}
+         \parbox[c]{\textwidth}{\centering afwezig: \min@absent}}
+    }
+\fi
 
 \let\default@title\title
 \renewcommand{\title}[1]{%
@@ -397,7 +412,12 @@
     \renewcommand{\min@absent}{#1}
 }
 
-\renewcommand{\ptctitle}{Onderwerpen}
+\ifeng@art
+    \renewcommand{\ptctitle}{Subjects}
+\else
+    \renewcommand{\ptctitle}{Onderwerpen}
+\fi
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Here we redefine the maketitle to add attendees and other important
@@ -416,14 +436,21 @@
         {\large \@date}%
 
     \end{center}%
-
-    \begin{tabular}{ l l }
-        \textbf{Voorzitter} & \min@chairman\\
-        \textbf{Notulist} & \min@secretary\\
-        \textbf{Tijd} & \min@starttime -- \min@endtime\\
-        \textbf{Locatie} & \min@location\\
-    \end{tabular}
-
+    \ifeng@art
+        \begin{tabular}{ l l }
+            \textbf{Chairman} & \min@chairman\\
+            \textbf{Secretary} & \min@secretary\\
+            \textbf{Time} & \min@starttime -- \min@endtime\\
+            \textbf{Venue} & \min@location\\
+        \end{tabular}
+    \else
+        \begin{tabular}{ l l }
+            \textbf{Voorzitter} & \min@chairman\\
+            \textbf{Notulist} & \min@secretary\\
+            \textbf{Tijd} & \min@starttime -- \min@endtime\\
+            \textbf{Locatie} & \min@location\\
+        \end{tabular}
+    \fi
 
     {\min@participants}% Hier stond de author en staan nu dus de af en presenten.
     \vskip 1em%
@@ -433,15 +460,19 @@
 
     \vskip 3em
 }
-\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\newcommand{\wvttk}{\textsc{W.v.t.t.k.}}
+\ifeng@art
+    % Whatever Else Came To The Table
+    \newcommand{\wecttt}{\textsc{W.e.c.t.t.t}}
+\else
+    % Wat Er Verder Ter Tafel Kwam
+    \newcommand{\wvttk}{\textsc{W.v.t.t.k.}}
+\fi
 \newcommand{\nameshape}{\slshape}
 \newcommand{\name}[1]{{\nameshape #1}\xspace}
 \newcommand{\sidenote}[1]{\medskip \footnotesize \emph{#1} \normalsize}
 \newcommand{\noitemsep}{\setlength{\itemsep}{-\parskip}}
+
+\makeatother
 \endinput
