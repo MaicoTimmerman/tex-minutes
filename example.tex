@@ -1,0 +1,49 @@
+\documentclass[english]{minutes}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{lineno}
+
+\title{Example Minutes}
+\date{}
+
+\newcommand{\bob}{\name{Bob Banketbakker}\xspace}
+\newcommand{\bor}{\name{Bor de Zwart}\xspace}
+\newcommand{\rob}{\name{Rob de Chef}\xspace}
+\newcommand{\tim}{\name{Tim Wattenheuvel}\xspace}
+
+\begin{document}
+
+\chairman{Bob Bakker\xspace}
+\secretary{Roro de Jongen\xspace}
+\starttime{14:25\xspace}
+\stoptime{14:30\xspace}
+\location{The kitchen\xspace}
+
+\maketitle
+\section{Opening}
+\begin{linenumbers}
+\timestamp{14:25}{\bob opens the meeting}
+
+%Insert meeting here
+
+% During meetings, people tend to vote. An example of this is added below
+\begin{vote}{What will we have for dinner?}
+    Pizza & 3 votes\\
+    Pasta & 1 vote\\
+    Gummy worms with Belgian sprouts & 0 votes\\
+\end{vote}
+\section{Next meeting}
+\name{Raymond Scheepstra} is going to make a year planning. He will decide in what weeks the meetings will take place. Then we can later plan the exact date.
+\task{Raymond}{Make a year planning}
+\decision{From now one, we will use a year planning}\\
+The next meeting will be within a month.\\\\
+\bor asks when \tim will do the dishes. \tim says he will do them as soon as possible.
+\section{Closing}
+\timestamp{14:30}{\bob closes the meeting}
+
+\end{linenumbers}
+
+\tasklist
+\decisionlist
+
+\end{document}
