@@ -19,9 +19,18 @@
     \RequirePackage[dutch]{babel}
 \fi
 
-\RequirePackage{tabularx, geometry, marginnote, eurosym, minitoc, fancyhdr, lineno, ifthen, xspace}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage[utf8]{inputenc}
+\RequirePackage{tabularx}
+\RequirePackage{geometry}
+\RequirePackage{marginnote}
+\RequirePackage{eurosym}
+\RequirePackage{minitoc}
+\RequirePackage{fancyhdr}
+\RequirePackage{lineno}
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+\RequirePackage{textcomp}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Margins
