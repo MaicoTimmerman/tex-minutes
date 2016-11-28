@@ -80,6 +80,30 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Signatures at the end of document.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*{\SignatureAndDate}[1]{%
+    \par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[2.5in][l]{#1}      \hfill\makebox[1.9in][l]{Date}%
+}%
+
+\AtEndDocument{%
+    \section*{Signatures}
+    \vspace{5em}
+    \ifeng@art
+        \SignatureAndDate{Chairman: \min@chairman}
+        \vspace{5em}
+        \SignatureAndDate{Secretary: \min@secretary}
+    \else
+        \SignatureAndDate{Voorzitter: \min@chairman}
+        \vspace{5em}
+        \SignatureAndDate{Secretaris: \min@secretary}
+    \fi
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Counter Depth
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
