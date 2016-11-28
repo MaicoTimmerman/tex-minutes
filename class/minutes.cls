@@ -250,7 +250,9 @@
   \ifcsname#1\endcsname%
     \ifeng@art
         \PackageError{minutes}{The command #1 already exists!}{The command #1 already exists!}
-    \PackageError{minutes}{Het commando #1 bestaat al!}{Het commando #1 bestaat al!}%
+    \else
+        \PackageError{minutes}{Het commando #1 bestaat al!}{Het commando #1 bestaat al!}%
+    \fi
   \fi%
   \expandafter\newcommand\csname #1\endcsname{%
     \if@intasklist%
@@ -388,6 +390,10 @@
     \renewcommand{\min@location}{#1}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \ifeng@art
     \newcommand{\min@participants}{
         \ifthenelse{\equal{\min@absent}{}}%
@@ -396,17 +402,12 @@
          \parbox[c]{\textwidth}{\centering absent: \min@absent}}
     }
 \else
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Presence
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\min@participants}{
-    \ifthenelse{\equal{\min@absent}{}}%
-    {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}}%
-    {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}
-     \parbox[c]{\textwidth}{\centering afwezig: \min@absent}}
-}
+    \newcommand{\min@participants}{
+        \ifthenelse{\equal{\min@absent}{}}%
+        {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}}%
+        {\parbox[c]{\textwidth}{\centering aanwezig: \min@present}
+         \parbox[c]{\textwidth}{\centering afwezig: \min@absent}}
+    }
 \fi
 
 \let\default@title\title
@@ -488,7 +489,7 @@
 
 \ifeng@art
     % Whatever Else Came To The Table
-    \newcommand{\wecttt}{\textsc{W.e.c.t.t.t}}
+    \newcommand{\aob}{\textsc{Any other business}}
 \else
     % Wat Er Verder Ter Tafel Kwam
     \newcommand{\wvttk}{\textsc{W.v.t.t.k.}}
