@@ -366,7 +366,7 @@
 \ifeng@art
     \newcommand{\min@title}{Minutes\message{Warning: no title defined}}
     \newcommand{\min@date}{\today \message{Warning: no date defined}}
-    \newcommand{\min@presend}{Everyone}
+    \newcommand{\min@present}{Everyone}
 \else
     \newcommand{\min@title}   {Notulen\message{Waarschuwing: geen title ingevoerd}}
     \newcommand{\min@date}   {\today \message{Waarschuwing: geen date ingevoerd}}
