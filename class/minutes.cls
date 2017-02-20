@@ -54,7 +54,7 @@
 \setlength{\topmargin}      {20mm}
 \setlength{\headheight}     {1.5em}
 \setlength{\headsep}        {2em}
-\setlength{\footskip}       {4em}
+\setlength{\footskip}       {2em}
 
 \setlength{\parindent}      {0em}
 \setlength{\parskip}        {0em}
